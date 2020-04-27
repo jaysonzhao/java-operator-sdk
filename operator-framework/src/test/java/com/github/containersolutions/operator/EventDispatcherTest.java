@@ -88,7 +88,7 @@ class EventDispatcherTest {
         eventDispatcher.handleEvent(Watcher.Action.MODIFIED, testCustomResource);
 
         assertEquals(0, testCustomResource.getMetadata().getFinalizers().size());
-        verify(customResourceReplaceFacade, times(1)).replaceWithLock(any());
+        verify(customResourceReplaceFacade, times(1)).patchResource(any());
     }
 
     @Test
@@ -119,7 +119,7 @@ class EventDispatcherTest {
         eventDispatcher.handleEvent(Watcher.Action.MODIFIED, testCustomResource);
 
         assertEquals(1, testCustomResource.getMetadata().getFinalizers().size());
-        verify(customResourceReplaceFacade, times(1)).replaceWithLock(any());
+        verify(customResourceReplaceFacade, times(1)).patchResource(any());
     }
 
     @Test
