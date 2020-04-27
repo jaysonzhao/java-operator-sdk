@@ -70,11 +70,13 @@ public class EventDispatcher {
 
 
     public CustomResource addFinalizerWithPatch(CustomResource resource) {
+        // todo this should be a merge patch, https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch
         addFinalizerOnResource(resource);
         return customResourceReplaceFacade.patchResource(resource);
     }
 
     public CustomResource removeFinalizerWithPatch(CustomResource resource) {
+        // todo, is this even possible nicely
         boolean removed = resource.getMetadata().getFinalizers().remove(resourceDefaultFinalizer);
         if (!removed) {
             log.warn("Attempt to remove finalizer, but was not found on resource: {}", identifierWithVersion(resource));
