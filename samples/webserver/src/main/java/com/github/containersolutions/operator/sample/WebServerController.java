@@ -43,7 +43,8 @@ public class WebServerController implements ResourceController<WebServer> {
 
         Map<String, String> data = new HashMap<>();
         data.put("index.html", webServer.getSpec().getHtml());
-
+        log.info("In "+ns+"You can do whatever you want with: "+webServer.getSpec().getHtml());
+/*
         ConfigMap htmlConfigMap = new ConfigMapBuilder()
                 .withMetadata(new ObjectMetaBuilder()
                         .withName(configMapName(webServer))
@@ -85,9 +86,9 @@ public class WebServerController implements ResourceController<WebServer> {
                 kubernetesClient.pods().inNamespace(ns).withLabel("app", deploymentName(webServer)).delete();
             }
         }
-
+*/
         WebServerStatus status = new WebServerStatus();
-        status.setHtmlConfigMap(htmlConfigMap.getMetadata().getName());
+        //status.setHtmlConfigMap(htmlConfigMap.getMetadata().getName());
         status.setAreWeGood("Yes!");
         webServer.setStatus(status);
 //        throw new RuntimeException("Creating object failed, because it failed");
