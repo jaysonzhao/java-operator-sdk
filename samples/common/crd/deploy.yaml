@@ -1,27 +1,22 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: webserver-operator
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webserver-operator
-  namespace: webserver-operator
+  name: jcommon-operator
+  namespace: jcommon-operator
 spec:
   selector:
     matchLabels:
-      app: webserver-operator
+      app: jcommon-operator
   replicas: 1
   template:
     metadata:
       labels:
-        app: webserver-operator
+        app: jcommon-operator
     spec:
-      serviceAccount: webserver-operator
+      serviceAccount: jcommon-operator
       containers:
       - name: operator
-        image: docker.io/jaysonzhao/jwebcop:v1
+        image: docker.io/jaysonzhao/jopcommon:v1
         ports:
         - containerPort: 80
         readinessProbe:
@@ -40,8 +35,8 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: webserver-operator
-  namespace: webserver-operator
+  name: jcommon-operator
+  namespace: jcommon-operator
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -49,8 +44,8 @@ metadata:
   name: operator-admin
 subjects:
 - kind: ServiceAccount
-  name: webserver-operator
-  namespace: webserver-operator
+  name: jcommon-operator
+  namespace: jcommon-operator
 roleRef:
   kind: ClusterRole
   name: cluster-admin
